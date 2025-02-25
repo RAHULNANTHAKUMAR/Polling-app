@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/auth/[...nextauth]/route.js", "app/dashboard/page.jsx", "app/create/page.tsx", "app/api/vote/route.js", "app/api/poll/[id]/route.js", "app/api/poll/page/route.js", "app/[id]/page.jsx", "app/[id]/result/page.jsx"],
   "exclude": ["node_modules"]
 }
