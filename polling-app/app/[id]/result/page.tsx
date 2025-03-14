@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart, PieChart, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button"; // Import Button
-import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { ResponsiveContainer, BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart as RechartsPieChart, Pie, Cell, Legend } from 'recharts';
 
@@ -28,7 +27,6 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#A826D9'
 export default function PollResultsPage() {
     const { id } = useParams();
     const [poll, setPoll] = useState<Poll | null>(null);
-    const [loading, setLoading] = useState(true);
     const [chartType, setChartType] = useState<'bar' | 'pie'>('bar');
     const [pollUrl, setPollUrl] = useState(''); // State for poll URL
 
@@ -36,7 +34,6 @@ export default function PollResultsPage() {
         setPollUrl(`${window.location.origin}/${id}/result`); // Generate poll URL
 
         const fetchPollResults = async () => {
-            setLoading(true);
             try {
                 const response = await fetch(`/api/poll/${id}`);
                 if (!response.ok) {
@@ -47,17 +44,12 @@ export default function PollResultsPage() {
                 setPoll(data.poll);
             } catch (error) {
                 console.error('Error fetching poll results:', error);
-            } finally {
-                setLoading(false);
             }
         };
 
         fetchPollResults();
     }, [id]);
 
-    const getTotalVotes = (options: PollOption[]) => {
-        return options.reduce((sum, option) => sum + option.vote_count, 0);
-    };
 
     const getChartData = (options: PollOption[]) => {
         return options.map((option, index) => ({
@@ -105,7 +97,6 @@ export default function PollResultsPage() {
                 </CardHeader>
                 <CardContent className="p-6">
                     {poll?.questions.map((question, questionIndex) => {
-                        const totalVotes = getTotalVotes(question.options);
                         const chartData = getChartData(question.options);
 
                         return (
