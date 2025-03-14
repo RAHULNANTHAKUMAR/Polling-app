@@ -32,7 +32,7 @@ async function GlassyHeader() {
                         </>
                     ) : (
                         <>
-                            <Link href="/api/auth/signin" className="hover:text-blue-500 transition-colors duration-200 flex items-center">
+                            <Link href="/login" className="hover:text-blue-500 transition-colors duration-200 flex items-center">
                                 <User2 className="mr-1 h-4 w-4" />
                                 Login
                             </Link>
